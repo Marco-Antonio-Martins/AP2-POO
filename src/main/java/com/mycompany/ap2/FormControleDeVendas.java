@@ -17,6 +17,7 @@ public class FormControleDeVendas extends javax.swing.JFrame {
     ArrayList<Carro> carros = new ArrayList();
     ArrayList<Venda> vendas = new ArrayList();
     int contadorVendas = 1;
+    double somaValorVendas = 0;
     
     /**
      * Creates new form FormControleDeVendas
@@ -35,10 +36,10 @@ public class FormControleDeVendas extends javax.swing.JFrame {
         clientes.add(c3 = new Cliente("333", "Carlos Cansado", "3333-3333"));
         clientes.add(c4 = new Cliente("444", "Denis Doidao", "4444-4444"));
         
-        carros.add(cr1 = new Carro("1", "Placa1", "Hyundai", "HB20 ", "2021", "Branco, pouco tempo de uso, em perfeito estado", 40.000, false));
-        carros.add(cr2 = new Carro("2", "Placa2", "Fiat ", "Uno ", "2010", "Cinza, tem escada no teto, porém precisa de uma bateria nova", 17.000, false));
-        carros.add(cr3 = new Carro("3", "Placa3", "Fiat ", "Argo ", "2019", "Vermelho, precisa de um novo câmbio de marchas", 30.000, false));
-        carros.add(cr4 = new Carro("4", "Placa4", "Chevrolet", "Onix  ", "2015", "Branco, necessita de reparos no motor", 27.000, false));
+        carros.add(cr1 = new Carro("1", "Placa1", "Hyundai", "HB20 ", "2021", "Branco, pouco tempo de uso, em perfeito estado", 40000.00, false));
+        carros.add(cr2 = new Carro("2", "Placa2", "Fiat ", "Uno ", "2010", "Cinza, tem escada no teto, porém precisa de uma bateria nova", 17000.00, false));
+        carros.add(cr3 = new Carro("3", "Placa3", "Fiat ", "Argo ", "2019", "Vermelho, precisa de um novo câmbio de marchas", 30000.00, false));
+        carros.add(cr4 = new Carro("4", "Placa4", "Chevrolet", "Onix  ", "2015", "Branco, necessita de reparos no motor", 27000.00, false));
         
         vendas.add(v1 = new Venda(contadorVendas, c1, cr3));
         contadorVendas+=1;
@@ -71,6 +72,19 @@ public class FormControleDeVendas extends javax.swing.JFrame {
             } 
          } return null;
       } 
+      
+      public double valorTotalVendas(){
+      somaValorVendas = 0;
+      for(Venda v : vendas){
+          somaValorVendas += v.calculaValorVenda();          
+      }
+        return somaValorVendas;
+      }
+      
+      public String relatorioVendas(){
+         String relatorio = "Quantidade de vendas: "+ Integer.toString(contadorVendas-1)+"\nValor total arrecadado com as vendas: "+ String.valueOf(valorTotalVendas())+"\n";       
+         return relatorio;
+      }
              
      /* This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -88,6 +102,8 @@ public class FormControleDeVendas extends javax.swing.JFrame {
         btCadastrarVenda = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         taSaida = new javax.swing.JTextArea();
+        btRelatorioDeVendas = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,10 +128,25 @@ public class FormControleDeVendas extends javax.swing.JFrame {
         taSaida.setRows(5);
         jScrollPane1.setViewportView(taSaida);
 
+        btRelatorioDeVendas.setText("Relatorio de Vendas:");
+        btRelatorioDeVendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRelatorioDeVendasActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Limpar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,15 +162,19 @@ public class FormControleDeVendas extends javax.swing.JFrame {
                         .addComponent(btCadastrarVenda)
                         .addGap(56, 56, 56))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator1))
-                        .addContainerGap())))
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btRelatorioDeVendas, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(225, 225, 225))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(tfVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -148,15 +183,19 @@ public class FormControleDeVendas extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(tfCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(50, 50, 50)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addComponent(btCadastrarVenda)))
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(205, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btRelatorioDeVendas)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addGap(16, 16, 16))
         );
 
         pack();
@@ -198,6 +237,16 @@ public class FormControleDeVendas extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btCadastrarVendaActionPerformed
 
+    private void btRelatorioDeVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRelatorioDeVendasActionPerformed
+        // TODO add your handling code here:
+        taSaida.append(relatorioVendas());
+    }//GEN-LAST:event_btRelatorioDeVendasActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        taSaida.setText(null);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -235,6 +284,8 @@ public class FormControleDeVendas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCadastrarVenda;
+    private javax.swing.JButton btRelatorioDeVendas;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
@@ -243,4 +294,5 @@ public class FormControleDeVendas extends javax.swing.JFrame {
     private javax.swing.JTextField tfCliente;
     private javax.swing.JTextField tfVenda;
     // End of variables declaration//GEN-END:variables
+
 }

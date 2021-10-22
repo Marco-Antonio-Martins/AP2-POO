@@ -90,12 +90,7 @@ public class Carro {
 
     public void setFoiVendido(boolean foiVendido) {
         this.foiVendido = foiVendido;
-    }
-    
-    public double calculaValorVenda(){
-        return valorDoBem * 0.05;
-    }
-
+    }  
 
     @Override
     public String toString() {

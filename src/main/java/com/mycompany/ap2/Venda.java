@@ -47,6 +47,10 @@ public class Venda {
     public void setCarroVendido(Carro carroVendido) {
         this.carroVendido = carroVendido;
     }
+    
+    public double calculaValorVenda(){
+        return carroVendido.getValorDoBem() * 1.05;
+    }
 
     @Override
     public String toString() {
