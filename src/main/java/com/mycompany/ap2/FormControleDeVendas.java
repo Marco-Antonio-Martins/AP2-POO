@@ -16,6 +16,7 @@ public class FormControleDeVendas extends javax.swing.JFrame {
     ArrayList<Cliente> clientes = new ArrayList();
     ArrayList<Carro> carros = new ArrayList();
     ArrayList<Venda> vendas = new ArrayList();
+    int contadorVendas = 1;
     
     /**
      * Creates new form FormControleDeVendas
@@ -32,15 +33,17 @@ public class FormControleDeVendas extends javax.swing.JFrame {
         clientes.add(c1 = new Cliente("111", "Ana Banana", "1111-1111"));
         clientes.add(c2 = new Cliente("222", "Beto Bolado", "2222-2222"));
         clientes.add(c3 = new Cliente("333", "Carlos Cansado", "3333-3333"));
-        clientes.add(c4 = new Cliente("444", "Denis Doidão", "4444-4444"));
+        clientes.add(c4 = new Cliente("444", "Denis Doidao", "4444-4444"));
         
         carros.add(cr1 = new Carro("1", "Placa1", "Hyundai", "HB20 ", "2021", "Branco, pouco tempo de uso, em perfeito estado", 40.000, false));
         carros.add(cr2 = new Carro("2", "Placa2", "Fiat ", "Uno ", "2010", "Cinza, tem escada no teto, porém precisa de uma bateria nova", 17.000, false));
         carros.add(cr3 = new Carro("3", "Placa3", "Fiat ", "Argo ", "2019", "Vermelho, precisa de um novo câmbio de marchas", 30.000, false));
         carros.add(cr4 = new Carro("4", "Placa4", "Chevrolet", "Onix  ", "2015", "Branco, necessita de reparos no motor", 27.000, false));
         
-        vendas.add(v1 = new Venda(1, c1, cr3));
-        vendas.add(v2 = new Venda(2, c2, cr4));        
+        vendas.add(v1 = new Venda(contadorVendas, c1, cr3));
+        contadorVendas+=1;
+        vendas.add(v2 = new Venda(contadorVendas, c2, cr4));       
+        contadorVendas+=1;
         
         for (Cliente c : clientes){
             System.out.println(c.toString()+"\n");
@@ -53,20 +56,20 @@ public class FormControleDeVendas extends javax.swing.JFrame {
          }    
     }
     
-      public boolean existeCliente(String cliente){
+      public Cliente existeCliente(String cliente){
       for (Cliente c : clientes){
             if (c.getNome().equalsIgnoreCase(cliente)){
-                return true;
+                return c;
             } 
-         } return false;
+         } return null;
       } 
       
-      public boolean existeCarro(String codigo){
+      public Carro existeCarro(String codigo){
       for (Carro cr : carros){
             if (cr.getCodigo().equalsIgnoreCase(codigo)){
-                return true;
+                return cr;
             } 
-         } return false;
+         } return null;
       } 
              
      /* This method is called from within the constructor to initialize the form.
@@ -171,20 +174,27 @@ public class FormControleDeVendas extends javax.swing.JFrame {
         if(tfCliente.getText().isBlank() || tfVenda.getText().isBlank()){
              JOptionPane.showMessageDialog(null, "Nenhum campo pode estar vazio!!!");
         }              
-        else if (existeCliente(clienteNovaVenda) == false){
+        else if (existeCliente(clienteNovaVenda) == null){
             JOptionPane.showMessageDialog(null, "Cliente não encontrado");           
         }   
-        else if (existeCarro(codcarroNovaVenda) == false){
+        else if (existeCarro(codcarroNovaVenda) == null){
             JOptionPane.showMessageDialog(null, "Carro não encontrado");
         }   
         for(Carro c : carros){
             if(c.getCodigo().equals(codcarroNovaVenda)){
                  if(c.isFoiVendido() == true){
-                     JOptionPane.showMessageDialog(null, "Esse carro já foi vendido");
-                 }               
-            }         
+                     JOptionPane.showMessageDialog(null, "Esse carro já foi vendido");                     
+                 }           
+                 else if(existeCliente(clienteNovaVenda) == null){}
+                 else{
+                 vendas.add(new Venda(contadorVendas, existeCliente(clienteNovaVenda), c));
+                 contadorVendas+=1;
+                 taSaida.append("VENDA REALIZADA COM SUCESSO"+"\n");
+                 Venda e = vendas.get(vendas.size() - 1);    
+                 System.out.println(e.toString()+"\n");
+                 }      
         }
-       
+        } 
         
     }//GEN-LAST:event_btCadastrarVendaActionPerformed
 

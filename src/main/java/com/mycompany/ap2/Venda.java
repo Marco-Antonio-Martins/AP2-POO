@@ -14,16 +14,16 @@ public class Venda {
     private Cliente comprador;
     private Carro carroVendido;
 
-    public Venda() {
+    public Venda() {                  
     }
 
     public Venda(int codigo, Cliente comprador, Carro carroVendido) {
-        this.codigo = codigo;
+        this.codigo = codigo; 
         this.comprador = comprador;
         this.carroVendido = carroVendido;
         this.carroVendido.setFoiVendido(true);
     }
-
+    
     public int getCodigo() {
         return codigo;
     }
