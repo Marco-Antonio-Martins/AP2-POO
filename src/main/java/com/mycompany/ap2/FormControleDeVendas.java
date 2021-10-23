@@ -82,7 +82,7 @@ public class FormControleDeVendas extends javax.swing.JFrame {
       }
       
       public String relatorioVendas(){
-         String relatorio = "Quantidade de vendas: "+ Integer.toString(contadorVendas-1)+"\nValor total arrecadado com as vendas: "+ String.valueOf(valorTotalVendas())+"\n";       
+         String relatorio = "Quantidade de vendas: "+ Integer.toString(contadorVendas-1)+"\nValor total arrecadado com as vendas: R$ "+ String.valueOf(valorTotalVendas())+"\n";
          return relatorio;
       }
              
@@ -240,6 +240,10 @@ public class FormControleDeVendas extends javax.swing.JFrame {
     private void btRelatorioDeVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRelatorioDeVendasActionPerformed
         // TODO add your handling code here:
         taSaida.append(relatorioVendas());
+        for (Venda v : vendas){
+            taSaida.append("Código da venda = " + v.getCodigo() + "; Comprador = " + v.getComprador().getNome() + "; Placa do carro vendido = " + v.getCarroVendido().getPlaca()+ "; Marca e modelo do carro vendido = " + v.getCarroVendido().getMarca() + " " + v.getCarroVendido().getModelo()+ ".\n");
+         }  
+        taSaida.append("\n");
     }//GEN-LAST:event_btRelatorioDeVendasActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
