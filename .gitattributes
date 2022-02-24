@@ -1,3 +1,0 @@
-$ cat .gitattributes
-dist/* linguist-vendored
-jquery.js linguist-vendored=true
